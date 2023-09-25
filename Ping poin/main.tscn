@@ -1,0 +1,301 @@
+[gd_scene load_steps=13 format=3 uid="uid://d0361k4t2h47v"]
+
+[ext_resource type="PackedScene" uid="uid://sqx7j8dvsvw6" path="res://Player.tscn" id="1_8srf8"]
+[ext_resource type="Texture2D" uid="uid://c0r6848m0eitg" path="res://texture/tennis_court_background.jpg" id="1_x3mwp"]
+[ext_resource type="PackedScene" uid="uid://ux0pk8vk4qy" path="res://Opponent.tscn" id="2_wa0ot"]
+[ext_resource type="PackedScene" uid="uid://rgpms7j4mh5u" path="res://Ball.tscn" id="3_7rhep"]
+[ext_resource type="Texture2D" uid="uid://iyr1on1om3wt" path="res://texture/video-pause-button.png" id="5_16tam"]
+
+[sub_resource type="GDScript" id="GDScript_svdlu"]
+script/source = "extends Node
+
+var score_player=0
+var score_opponent=0
+var paused = false
+var pause_button
+var continue_button
+var exit_button
+var menuPause
+var LabelWinner
+var menuWinner
+var exit_for_win_button
+
+func _ready():
+	
+	continue_button = get_node(\"menuPause/ButtonContinue\")
+	menuPause = get_node(\"menuPause\")
+	pause_button = get_node(\"PauseButton\")
+	exit_button = get_node(\"menuPause/ButtonExitInMenu\")
+	LabelWinner = get_node(\"menuPause/ButtonExitInMenu/LabelWinner\")
+	menuWinner = get_node(\"MenuWinner\")
+	exit_for_win_button = get_node(\"MenuWinner/ButtonExitInMenu\")
+	pause_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	continue_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_for_win_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	
+	
+	
+func reset_ball():
+	var screen_size = get_viewport().get_visible_rect().size
+	print(screen_size)
+	var move =Vector2()
+	move.x = (screen_size.x / 2)
+	move.y = randf() * screen_size.y
+	$Ball.has_bounced = false
+	$Ball.speed = 250
+	$Ball.position = move
+func _on_left_field_body_entered(body):
+	score_opponent+=1
+	reset_ball()
+func _on_right_field_body_entered(body):
+	score_player+=1
+	reset_ball()
+func _process(delta):
+	$LabelScorePlayer.text=str(score_player)
+	$LabelScoreOpponent.text=str(score_opponent)
+	check_winner()
+
+
+func check_winner():
+	if score_opponent==3:
+		$MenuWinner/LabelWinOpponent.text=str(\"Победил\")
+		$MenuWinner/LabelWinPlayer.text=str(\"Проиграл\")
+		paused = true
+		get_tree().paused = paused
+		menuWinner.show()
+		
+	elif score_player == 3:
+			
+		$MenuWinner/LabelWinOpponent.text=str(\"Проиграл\")
+		$MenuWinner/LabelWinPlayer.text=str(\"Победил\")
+		paused = true
+		get_tree().paused = paused
+		menuWinner.show()
+func _on_pause_button_pressed():
+	
+	paused = true
+	get_tree().paused = paused
+	menuPause.show()
+	
+	
+
+
+
+
+
+
+func _on_button_continue_pressed():
+	paused = false
+	get_tree().paused = paused	
+	menuPause.hide()
+
+
+func _on_button_exit_in_menu_pressed():
+	paused = false
+	get_tree().paused = paused	
+	get_tree().change_scene_to_file(\"res://mainmenu.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_1cmtx"]
+script/source = "extends StaticBody2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var physics_material = PhysicsMaterial.new()
+	physics_material.bounce = 0.5
+	self.physics_material_override = physics_material
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ss0h7"]
+size = Vector2(1153, 20)
+
+[sub_resource type="GDScript" id="GDScript_fl5pe"]
+script/source = "extends CollisionShape2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awp0j"]
+size = Vector2(1151, 20.5)
+
+[sub_resource type="GDScript" id="GDScript_y1tkq"]
+script/source = "extends Area2D
+
+
+func _on_Left_field_body_entered(body):
+	print(\"11111111111111111111\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xw7qx"]
+size = Vector2(78.1853, 644)
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_svdlu")
+metadata/_edit_horizontal_guides_ = []
+metadata/_edit_vertical_guides_ = []
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_x3mwp")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+show_behind_parent = true
+script = SubResource("GDScript_1cmtx")
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+top_level = true
+position = Vector2(577.5, 0)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_ss0h7")
+script = SubResource("GDScript_fl5pe")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(578, 648)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_awp0j")
+
+[node name="Ball" parent="." instance=ExtResource("3_7rhep")]
+position = Vector2(575, 320)
+
+[node name="Opponent" parent="." instance=ExtResource("2_wa0ot")]
+position = Vector2(1109, 321)
+
+[node name="Player" parent="." instance=ExtResource("1_8srf8")]
+position = Vector2(45, 321)
+
+[node name="Left_field" type="Area2D" parent="."]
+script = SubResource("GDScript_y1tkq")
+
+[node name="Left_field" type="CollisionShape2D" parent="Left_field"]
+position = Vector2(-88.25, 331)
+shape = SubResource("RectangleShape2D_xw7qx")
+
+[node name="Right_field" type="Area2D" parent="."]
+position = Vector2(1151, 1)
+scale = Vector2(1.93131, 1)
+script = SubResource("GDScript_y1tkq")
+
+[node name="Right_field" type="CollisionShape2D" parent="Right_field"]
+z_as_relative = false
+position = Vector2(58.7684, 326)
+shape = SubResource("RectangleShape2D_xw7qx")
+
+[node name="LabelScorePlayer" type="Label" parent="."]
+offset_left = 493.0
+offset_top = 14.0
+offset_right = 568.0
+offset_bottom = 64.0
+
+[node name="LabelScoreOpponent" type="Label" parent="."]
+offset_left = 627.0
+offset_top = 12.0
+offset_right = 699.0
+offset_bottom = 64.0
+
+[node name="PauseButton" type="TextureButton" parent="."]
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 520.0
+offset_bottom = 514.0
+scale = Vector2(0.140862, 0.138815)
+texture_normal = ExtResource("5_16tam")
+
+[node name="menuPause" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1154.0
+offset_bottom = 650.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.870588, 0.870588, 0.870588, 0)
+
+[node name="Label" type="Label" parent="menuPause"]
+layout_mode = 2
+offset_left = 412.0
+offset_top = 71.0
+offset_right = 793.0
+offset_bottom = 128.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "Пауза"
+horizontal_alignment = 1
+
+[node name="ButtonContinue" type="Button" parent="menuPause"]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 199.0
+offset_right = 797.0
+offset_bottom = 295.0
+theme_override_font_sizes/font_size = 64
+text = "Продолжить"
+
+[node name="ButtonExitInMenu" type="Button" parent="menuPause"]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 309.0
+offset_right = 799.0
+offset_bottom = 404.0
+theme_override_font_sizes/font_size = 56
+text = "Выйти в меню"
+
+[node name="MenuWinner" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 644.0
+color = Color(1, 1, 1, 0)
+
+[node name="LabelWinPlayer" type="Label" parent="MenuWinner"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 74.0
+offset_right = 438.0
+offset_bottom = 172.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+text = "Winner"
+horizontal_alignment = 1
+
+[node name="LabelWinOpponent" type="Label" parent="MenuWinner"]
+offset_left = 717.0
+offset_top = 78.0
+offset_right = 1014.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+text = "Lost"
+horizontal_alignment = 1
+
+[node name="ButtonExitInMenu" type="Button" parent="MenuWinner"]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 417.0
+offset_right = 910.0
+offset_bottom = 507.0
+theme_override_font_sizes/font_size = 56
+text = "Выйти в главное меню"
+
+[connection signal="body_entered" from="Left_field" to="." method="_on_left_field_body_entered"]
+[connection signal="body_entered" from="Right_field" to="." method="_on_right_field_body_entered"]
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="menuPause/ButtonContinue" to="." method="_on_button_continue_pressed"]
+[connection signal="pressed" from="menuPause/ButtonExitInMenu" to="." method="_on_button_exit_in_menu_pressed"]
+[connection signal="pressed" from="MenuWinner/ButtonExitInMenu" to="." method="_on_button_exit_in_menu_pressed"]

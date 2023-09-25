@@ -1,0 +1,15 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1695584863
+Ball.gd::GDScript::-1::1695580767::0::1::::<>CharacterBody2D<>::
+Ball.tscn::PackedScene::1206529788091462140::1695584600::0::1::::<><>::uid://crjvf37vjbsi8::::res://texture/pngwing.com.png<>res://Ball.gd
+icon.svg::CompressedTexture2D::6422991238573421795::1695540876::1695540890::1::::<><>::
+main.tscn::PackedScene::8973714947493567569::1695584863::0::1::::<><>::uid://sqx7j8dvsvw6::::res://Player.tscn<>uid://c0r6848m0eitg::::res://texture/tennis_court_background.jpg<>uid://ux0pk8vk4qy::::res://Opponent.tscn<>uid://rgpms7j4mh5u::::res://Ball.tscn
+Opponent.gd::GDScript::-1::1695575747::0::1::::<>CharacterBody2D<>::
+Opponent.tscn::PackedScene::42729495588602092::1695584599::0::1::::<><>::uid://eaw3xjfyy3jp::::res://texture/sprite player.png<>res://Opponent.gd
+Player.gd::GDScript::-1::1695577416::0::1::::<>CharacterBody2D<>::
+Player.tscn::PackedScene::1297883389641923551::1695584599::0::1::::<><>::res://Player.gd<>uid://eaw3xjfyy3jp::::res://texture/sprite player.png
+::res://texture/::1695610347
+pngwing.com.png::CompressedTexture2D::5985916615890687537::1695562201::1695562215::1::::<><>::
+sprite player.png::CompressedTexture2D::282142372822847057::1695495764::1695541124::1::::<><>::
+tennis_court_background.jpg::CompressedTexture2D::6564599612865150364::1695584456::1695584461::1::::<><>::
+video-pause-button.png::CompressedTexture2D::612135191330144815::1695610339::1695610350::1::::<><>::

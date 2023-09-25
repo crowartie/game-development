@@ -1,0 +1,15 @@
+Button
+Label
+ColorRect
+CanvasLayer
+TextureRect
+TextureButton
+VBoxContainer
+MarginContainer
+PanelContainer
+CenterContainer
+CollisionShape2D
+Area2D
+StaticBody2D
+Sprite2D
+CharacterBody2D
