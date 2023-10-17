@@ -14,6 +14,7 @@ func _physics_process(delta):
 	
 	var collision_object = move_and_collide(speed * move * delta)
 	if collision_object:
+		print(collision_object)
 		move = move.bounce(collision_object.get_normal())
 		print(collision_object.get_collider().name)
 		if (collision_object.get_collider().name == "Player" or collision_object.get_collider().name == "Opponent") and !has_bounced:

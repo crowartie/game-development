@@ -20,8 +20,7 @@ var LabelWinner
 var menuWinner
 var exit_for_win_button
 
-func _ready():
-	
+func _ready():	
 	continue_button = get_node(\"menuPause/ButtonContinue\")
 	menuPause = get_node(\"menuPause\")
 	pause_button = get_node(\"PauseButton\")
@@ -33,10 +32,8 @@ func _ready():
 	continue_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	exit_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	exit_for_win_button.process_mode = Node.PROCESS_MODE_ALWAYS
-	
-	
-	
-	
+
+
 func reset_ball():
 	var screen_size = get_viewport().get_visible_rect().size
 	print(screen_size)
@@ -46,12 +43,18 @@ func reset_ball():
 	$Ball.has_bounced = false
 	$Ball.speed = 250
 	$Ball.position = move
+
+
 func _on_left_field_body_entered(body):
 	score_opponent+=1
 	reset_ball()
+
+
 func _on_right_field_body_entered(body):
 	score_player+=1
 	reset_ball()
+
+
 func _process(delta):
 	$LabelScorePlayer.text=str(score_player)
 	$LabelScoreOpponent.text=str(score_opponent)
@@ -65,32 +68,24 @@ func check_winner():
 		paused = true
 		get_tree().paused = paused
 		menuWinner.show()
-		
 	elif score_player == 3:
-			
 		$MenuWinner/LabelWinOpponent.text=str(\"Проиграл\")
 		$MenuWinner/LabelWinPlayer.text=str(\"Победил\")
 		paused = true
 		get_tree().paused = paused
 		menuWinner.show()
+
+
 func _on_pause_button_pressed():
-	
 	paused = true
 	get_tree().paused = paused
 	menuPause.show()
 	
-	
-
-
-
-
-
-
 func _on_button_continue_pressed():
 	paused = false
 	get_tree().paused = paused	
 	menuPause.hide()
-
+ 
 
 func _on_button_exit_in_menu_pressed():
 	paused = false
@@ -110,7 +105,7 @@ func _ready():
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ss0h7"]
-size = Vector2(1153, 20)
+size = Vector2(1152, 16.0015)
 
 [sub_resource type="GDScript" id="GDScript_fl5pe"]
 script/source = "extends CollisionShape2D
@@ -127,7 +122,7 @@ func _process(delta):
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awp0j"]
-size = Vector2(1151, 20.5)
+size = Vector2(1152, 16.125)
 
 [sub_resource type="GDScript" id="GDScript_y1tkq"]
 script/source = "extends Area2D
@@ -138,7 +133,7 @@ func _on_Left_field_body_entered(body):
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xw7qx"]
-size = Vector2(78.1853, 644)
+size = Vector2(33.0819, 648)
 
 [node name="Node2D" type="Node2D"]
 script = SubResource("GDScript_svdlu")
@@ -146,8 +141,6 @@ metadata/_edit_horizontal_guides_ = []
 metadata/_edit_vertical_guides_ = []
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 6.0
-offset_top = 1.0
 offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("1_x3mwp")
@@ -158,30 +151,30 @@ script = SubResource("GDScript_1cmtx")
 
 [node name="TopWall" type="CollisionShape2D" parent="Walls"]
 top_level = true
-position = Vector2(577.5, 0)
+position = Vector2(576, -7.99927)
 rotation = 3.14159
 shape = SubResource("RectangleShape2D_ss0h7")
 script = SubResource("GDScript_fl5pe")
 
 [node name="BottomWall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(578, 648)
+position = Vector2(576, 655.938)
 rotation = -3.14159
 shape = SubResource("RectangleShape2D_awp0j")
 
 [node name="Ball" parent="." instance=ExtResource("3_7rhep")]
-position = Vector2(575, 320)
+position = Vector2(576, 324)
 
 [node name="Opponent" parent="." instance=ExtResource("2_wa0ot")]
-position = Vector2(1109, 321)
+position = Vector2(1104, 320)
 
 [node name="Player" parent="." instance=ExtResource("1_8srf8")]
-position = Vector2(45, 321)
+position = Vector2(49, 321)
 
 [node name="Left_field" type="Area2D" parent="."]
 script = SubResource("GDScript_y1tkq")
 
 [node name="Left_field" type="CollisionShape2D" parent="Left_field"]
-position = Vector2(-88.25, 331)
+position = Vector2(-17, 324)
 shape = SubResource("RectangleShape2D_xw7qx")
 
 [node name="Right_field" type="Area2D" parent="."]
@@ -191,7 +184,7 @@ script = SubResource("GDScript_y1tkq")
 
 [node name="Right_field" type="CollisionShape2D" parent="Right_field"]
 z_as_relative = false
-position = Vector2(58.7684, 326)
+position = Vector2(17.1149, 323)
 shape = SubResource("RectangleShape2D_xw7qx")
 
 [node name="LabelScorePlayer" type="Label" parent="."]
@@ -208,9 +201,9 @@ offset_bottom = 64.0
 
 [node name="PauseButton" type="TextureButton" parent="."]
 offset_left = 8.0
-offset_top = 2.0
+offset_top = 8.0
 offset_right = 520.0
-offset_bottom = 514.0
+offset_bottom = 520.0
 scale = Vector2(0.140862, 0.138815)
 texture_normal = ExtResource("5_16tam")
 
@@ -229,10 +222,10 @@ color = Color(0.870588, 0.870588, 0.870588, 0)
 
 [node name="Label" type="Label" parent="menuPause"]
 layout_mode = 2
-offset_left = 412.0
-offset_top = 71.0
-offset_right = 793.0
-offset_bottom = 128.0
+offset_left = 384.0
+offset_top = 64.0
+offset_right = 765.0
+offset_bottom = 155.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
@@ -241,19 +234,19 @@ horizontal_alignment = 1
 
 [node name="ButtonContinue" type="Button" parent="menuPause"]
 layout_mode = 0
-offset_left = 379.0
-offset_top = 199.0
-offset_right = 797.0
-offset_bottom = 295.0
+offset_left = 368.0
+offset_top = 232.0
+offset_right = 786.0
+offset_bottom = 328.0
 theme_override_font_sizes/font_size = 64
 text = "Продолжить"
 
 [node name="ButtonExitInMenu" type="Button" parent="menuPause"]
 layout_mode = 0
-offset_left = 379.0
-offset_top = 309.0
-offset_right = 799.0
-offset_bottom = 404.0
+offset_left = 368.0
+offset_top = 360.0
+offset_right = 788.0
+offset_bottom = 455.0
 theme_override_font_sizes/font_size = 56
 text = "Выйти в меню"
 
@@ -265,31 +258,32 @@ color = Color(1, 1, 1, 0)
 
 [node name="LabelWinPlayer" type="Label" parent="MenuWinner"]
 layout_mode = 0
-offset_left = 141.0
-offset_top = 74.0
-offset_right = 438.0
-offset_bottom = 172.0
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 448.0
+offset_bottom = 160.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
 text = "Winner"
 horizontal_alignment = 1
 
 [node name="LabelWinOpponent" type="Label" parent="MenuWinner"]
-offset_left = 717.0
-offset_top = 78.0
-offset_right = 1014.0
-offset_bottom = 176.0
+layout_mode = 0
+offset_left = 704.0
+offset_top = 64.0
+offset_right = 1024.0
+offset_bottom = 160.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Lost"
+text = "Loser"
 horizontal_alignment = 1
 
 [node name="ButtonExitInMenu" type="Button" parent="MenuWinner"]
 layout_mode = 0
-offset_left = 249.0
-offset_top = 417.0
-offset_right = 910.0
-offset_bottom = 507.0
+offset_left = 240.0
+offset_top = 416.0
+offset_right = 911.0
+offset_bottom = 506.0
 theme_override_font_sizes/font_size = 56
 text = "Выйти в главное меню"
 

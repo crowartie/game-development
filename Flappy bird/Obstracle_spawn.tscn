@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkj6o3vqlv3ry"]
+
+[ext_resource type="Script" path="res://Obstracle_spawn.gd" id="1_fbkxb"]
+
+[node name="spawn" type="Node2D"]
+script = ExtResource("1_fbkxb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.8
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

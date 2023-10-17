@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://crctso2li06jf"]
+
+[ext_resource type="Script" path="res://Obstracle.gd" id="1_0r47v"]
+[ext_resource type="PackedScene" uid="uid://d1efnyoa2be41" path="res://pipe.tscn" id="2_i3qjp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4pey"]
+size = Vector2(0, 128)
+
+[node name="Abstracle" type="Node2D"]
+position = Vector2(0, 256)
+script = ExtResource("1_0r47v")
+
+[node name="Pipe" parent="." instance=ExtResource("2_i3qjp")]
+position = Vector2(0, 192)
+
+[node name="Pipe2" parent="." instance=ExtResource("2_i3qjp")]
+position = Vector2(0, -192)
+rotation = 3.14159
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_s4pey")
+
+[connection signal="body_entered" from="Pipe" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Pipe2" to="." method="_on_pipe_2_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,154 @@
+[gd_scene load_steps=8 format=3 uid="uid://blfcahq33usxf"]
+
+[ext_resource type="Script" path="res://Game_scene.gd" id="1_48hw8"]
+[ext_resource type="Texture2D" uid="uid://cb7cr8j83q1j6" path="res://textures/background.png" id="2_2n5ce"]
+[ext_resource type="PackedScene" uid="uid://45dv1h2jwl45" path="res://Bird.tscn" id="3_o23df"]
+[ext_resource type="PackedScene" uid="uid://dkj6o3vqlv3ry" path="res://Obstracle_spawn.tscn" id="4_can3c"]
+[ext_resource type="PackedScene" uid="uid://cb10w573mqjm2" path="res://Land.tscn" id="5_724am"]
+[ext_resource type="Texture2D" uid="uid://dextbfpnysyyx" path="res://textures/pause-button.png" id="6_ql3pq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75h6k"]
+size = Vector2(512, 28)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_48hw8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 512.0
+offset_bottom = 512.0
+texture = ExtResource("2_2n5ce")
+
+[node name="Spawn" parent="." instance=ExtResource("4_can3c")]
+position = Vector2(576, 0)
+
+[node name="Bird" parent="." instance=ExtResource("3_o23df")]
+position = Vector2(64, 256)
+
+[node name="Land" parent="." instance=ExtResource("5_724am")]
+position = Vector2(0, 448)
+
+[node name="LabelScore" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 153.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 28
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(256, -78)
+shape = SubResource("RectangleShape2D_75h6k")
+
+[node name="PauseButton" type="TextureButton" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 528.0
+offset_bottom = 528.0
+scale = Vector2(0.08, 0.08)
+texture_normal = ExtResource("6_ql3pq")
+
+[node name="MenuGameOver" type="ColorRect" parent="."]
+visible = false
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(1, 1, 1, 0)
+
+[node name="LabelGameOver" type="Label" parent="MenuGameOver"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 40.0
+offset_right = 368.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 38
+text = "GAME OVER"
+
+[node name="ButtonRestart" type="Button" parent="MenuGameOver"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 272.0
+offset_right = 416.0
+offset_bottom = 319.0
+theme_override_font_sizes/font_size = 28
+text = "Restart"
+
+[node name="ButtonExit" type="Button" parent="MenuGameOver"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 336.0
+offset_right = 416.0
+offset_bottom = 383.0
+theme_override_font_sizes/font_size = 28
+text = "Exit"
+
+[node name="LabelScore" type="Label" parent="MenuGameOver"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="LabelScoreGameOver" type="Label" parent="MenuGameOver"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 200.0
+offset_right = 368.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 38
+horizontal_alignment = 1
+
+[node name="LabelStartGame" type="Label" parent="."]
+offset_left = 128.0
+offset_top = 248.0
+offset_right = 384.0
+offset_bottom = 274.0
+text = "Press \"space\" for start game"
+horizontal_alignment = 1
+
+[node name="MenuPause" type="ColorRect" parent="."]
+visible = false
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(1, 1, 1, 0.101961)
+
+[node name="LabelPause" type="Label" parent="MenuPause"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 40.0
+offset_right = 368.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 38
+text = "PAUSE"
+horizontal_alignment = 1
+
+[node name="ButtonContinue" type="Button" parent="MenuPause"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 208.0
+offset_right = 419.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 28
+text = "Continue"
+
+[node name="ButtonRestart" type="Button" parent="MenuPause"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 272.0
+offset_right = 416.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 28
+text = "Restart"
+
+[node name="ButtonExit" type="Button" parent="MenuPause"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 336.0
+offset_right = 416.0
+offset_bottom = 384.0
+theme_override_font_sizes/font_size = 28
+text = "Exit"
+
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="MenuGameOver/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="MenuGameOver/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="MenuPause/ButtonContinue" to="." method="_on_button_continue_pressed"]
+[connection signal="pressed" from="MenuPause/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="MenuPause/ButtonExit" to="." method="_on_button_exit_pressed"]

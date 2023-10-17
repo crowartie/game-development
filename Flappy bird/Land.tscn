@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://cb10w573mqjm2"]
+
+[ext_resource type="Texture2D" uid="uid://cq80m4wc1unmj" path="res://textures/base.png" id="1_d4ah5"]
+[ext_resource type="Script" path="res://Land.gd" id="1_neuac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u12gd"]
+size = Vector2(512, 64)
+
+[sub_resource type="Animation" id="Animation_bh22d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(352, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_knwe1"]
+resource_name = "move_land"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(352, 32), Vector2(160, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ar7jw"]
+_data = {
+"RESET": SubResource("Animation_bh22d"),
+"move_land": SubResource("Animation_knwe1")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ka2xj"]
+size = Vector2(512, 64)
+
+[node name="Land" type="StaticBody2D"]
+script = ExtResource("1_neuac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(256, 32)
+shape = SubResource("RectangleShape2D_u12gd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(352, 32)
+scale = Vector2(2.09524, 0.571429)
+texture = ExtResource("1_d4ah5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ar7jw")
+}
+
+[node name="Game_over_zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game_over_zone"]
+position = Vector2(256, 32)
+shape = SubResource("RectangleShape2D_ka2xj")
+
+[connection signal="body_entered" from="Game_over_zone" to="." method="_on_game_over_zone_body_entered"]

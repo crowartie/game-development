@@ -7,8 +7,8 @@
 script = ExtResource("1_uhayx")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 1149.0
-offset_bottom = 658.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("1_724cw")
 
 [node name="Label" type="Label" parent="."]

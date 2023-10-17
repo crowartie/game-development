@@ -1,3 +1,4 @@
+StaticBody2D
 Button
 Label
 ColorRect
@@ -10,6 +11,5 @@ PanelContainer
 CenterContainer
 CollisionShape2D
 Area2D
-StaticBody2D
 Sprite2D
 CharacterBody2D
