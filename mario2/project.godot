@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="mario2"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://Global.gd"
+
+[layer_names]
+
+2d_physics/layer_1="Blocks"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="BonusObjects"
+2d_physics/layer_4="enemy"
+2d_physics/layer_5="Pipe"
+2d_physics/layer_6="fireball"

@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://dah13xpdveqhf"]
+
+[ext_resource type="Texture2D" uid="uid://dxstf3eeggcla" path="res://assets/Sprites/EmptyBlock.png" id="1_4yloc"]
+[ext_resource type="Texture2D" uid="uid://cv5q5jjpotegk" path="res://assets/Sprites/MysteryBlock.png" id="1_74xe8"]
+[ext_resource type="Script" path="res://objects/MystoryBox/MystoryBox.gd" id="1_gy3l0"]
+[ext_resource type="Texture2D" uid="uid://cw5a4ngls41r5" path="res://assets/Sprites/MysteryBox1.png" id="2_g0wty"]
+[ext_resource type="Texture2D" uid="uid://n3wf4wh4jvb8" path="res://assets/Sprites/MysterBox2.png" id="3_70p6p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sf1j"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5toks"]
+size = Vector2(16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aaaot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4yloc")
+}],
+"loop": true,
+"name": &"empty_mystory_box",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("1_74xe8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g0wty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_70p6p")
+}],
+"loop": true,
+"name": &"mystory_box",
+"speed": 5.0
+}]
+
+[node name="MystoryBox" type="StaticBody2D"]
+z_index = 1
+script = ExtResource("1_gy3l0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6sf1j")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5toks")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_aaaot")
+animation = &"mystory_box"

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx6kocr7pv43n"]
+
+[ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://assets/Sprites/GroundBlock.png" id="1_6kitl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wxu4"]
+size = Vector2(16, 16)
+
+[node name="GroundBlock" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0wxu4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_6kitl")

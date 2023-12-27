@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxayyy7sy1akc"]
+
+[ext_resource type="Script" path="res://characters/player/Fireball.gd" id="1_23e47"]
+[ext_resource type="Texture2D" uid="uid://c135f55fbxgm3" path="res://assets/Sprites/fireball1.png" id="2_ii13c"]
+[ext_resource type="Texture2D" uid="uid://hiugutq3ty4p" path="res://assets/Sprites/fireball2.png" id="3_r8dx6"]
+[ext_resource type="Texture2D" uid="uid://bdgbfwhb1nnqe" path="res://assets/Sprites/fireball3.png" id="4_l3fyg"]
+[ext_resource type="Texture2D" uid="uid://dhyiy4t3j3xga" path="res://assets/Sprites/fireball4.png" id="5_sjfp1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_npa5f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ii13c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r8dx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l3fyg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sjfp1")
+}],
+"loop": true,
+"name": &"fireball",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mya06"]
+size = Vector2(8, 8)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2xnxt"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 3.89
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 270.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -100.0
+radial_accel_min = -100.0
+radial_accel_max = 100.0
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+color = Color(0.85098, 0.4, 0.458824, 1)
+
+[node name="Fireball" type="Area2D"]
+collision_layer = 32
+collision_mask = 25
+script = ExtResource("1_23e47")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_npa5f")
+animation = &"fireball"
+frame_progress = 0.301866
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mya06")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 4)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, 2.38419e-07)
+scale = Vector2(0.4, 0.4)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(-5, 0)
+collision_mask = 17
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(5, 0)
+collision_mask = 17
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.225, 0.225)
+emitting = false
+amount = 10000
+process_material = SubResource("ParticleProcessMaterial_2xnxt")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+trail_sections = 2
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]

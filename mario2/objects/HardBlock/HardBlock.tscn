@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cisioivgq051d"]
+
+[ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://assets/Sprites/HardBlock.png" id="1_1wv8j"]
+[ext_resource type="Script" path="res://objects/HardBlock/HardBlock.gd" id="1_3brqk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wekgt"]
+size = Vector2(16, 16)
+
+[node name="HardBlock" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_3brqk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wekgt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_1wv8j")

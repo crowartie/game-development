@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://vc6853n044s"]
+
+[ext_resource type="Script" path="res://labels/label.gd" id="1_tdas2"]
+
+[node name="Label" type="Label"]
+offset_top = -86.0
+offset_right = 40.0
+offset_bottom = -63.0
+theme_override_font_sizes/font_size = 10
+text = "100"
+script = ExtResource("1_tdas2")

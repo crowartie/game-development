@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4y0tsbw57q3b"]
+
+[ext_resource type="Texture2D" uid="uid://b5sqfy41h20ks" path="res://assets/Sprites/PipeTop.png" id="1_rfsbj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iktfe"]
+size = Vector2(28, 16)
+
+[node name="PipeTop" type="StaticBody2D"]
+z_index = 1
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_iktfe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_rfsbj")

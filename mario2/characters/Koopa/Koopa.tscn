@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5x3vjq6fory1"]
+
+[ext_resource type="Script" path="res://characters/Koopa/koopa.gd" id="1_io4eb"]
+[ext_resource type="Texture2D" uid="uid://d0n6srd2hrk0i" path="res://assets/Sprites/Koopa_Shell.png" id="1_jd7cm"]
+[ext_resource type="Texture2D" uid="uid://rq2r08kewwlo" path="res://assets/Sprites/Koopa_Walk1.png" id="2_7r1c2"]
+[ext_resource type="Texture2D" uid="uid://b2q1ddi7o0ef" path="res://assets/Sprites/Koopa_Walk2.png" id="3_25hxi"]
+[ext_resource type="Shape2D" uid="uid://46n3tqinikna" path="res://characters/Koopa/Collisions/KoopaWalk.tres" id="4_a46xb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tx2ij"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jd7cm")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7r1c2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_25hxi")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Koopa" type="Area2D"]
+collision_layer = 8
+collision_mask = 27
+script = ExtResource("1_io4eb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_tx2ij")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = ExtResource("4_a46xb")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 12)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

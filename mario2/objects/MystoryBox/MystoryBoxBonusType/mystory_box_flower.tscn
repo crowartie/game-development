@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://y8ktqnmuqxvl"]
+
+[ext_resource type="PackedScene" uid="uid://dah13xpdveqhf" path="res://objects/MystoryBox/MystoryBox.tscn" id="1_xotvp"]
+[ext_resource type="Script" path="res://objects/MystoryBox/MystoryBoxBonusType/mystory_box_flower.gd" id="2_8u2vk"]
+
+[node name="MystoryBox" instance=ExtResource("1_xotvp")]
+collision_mask = 0
+script = ExtResource("2_8u2vk")
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+autoplay = "mystory_box"

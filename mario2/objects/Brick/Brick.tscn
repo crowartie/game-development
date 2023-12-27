@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bi322rntss21j"]
+
+[ext_resource type="Script" path="res://objects/Brick/Brick.gd" id="1_6mm0h"]
+[ext_resource type="Texture2D" uid="uid://co3bdq1m4vg4f" path="res://assets/Sprites/Brick.png" id="1_ce7t1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_givlf"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lkqqx"]
+size = Vector2(16, 16)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cn24l"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(1, 5, 0)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 90.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.4
+scale_max = 0.4
+
+[node name="Brick" type="StaticBody2D"]
+script = ExtResource("1_6mm0h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_givlf")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lkqqx")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_cn24l")
+texture = ExtResource("1_ce7t1")
+one_shot = true
+explosiveness = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ce7t1")
+
+[connection signal="finished" from="GPUParticles2D" to="." method="_on_gpu_particles_2d_finished"]
